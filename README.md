@@ -64,11 +64,42 @@ Create a POS based on a JSON object provided in the request body:
 curl --header "Content-Type: application/json" --request POST --data '{"name":"New Café","description":"Description","type":"CAFE","campus":"ALTSTADT","street":"Hauptstraße","houseNumber":"100","postalCode":69117,"city":"Heidelberg"}' http://localhost:8080/api/pos
 ```
 
-Create a POS based on an OpenStreetMap node:
+#### Import POS from OpenStreetMap
+
+Create a POS based on an OpenStreetMap node by providing the node ID. The system will fetch the node's data from OpenStreetMap and automatically convert it to a POS entity.
 
 ```shell
 curl --request POST http://localhost:8080/api/pos/import/osm/5589879349 # set a valid OSM node ID here
 ```
+
+**How it works:**
+- Fetches the OSM node data using the provided ID
+- Extracts relevant information from OSM tags (name, address, amenity type, etc.)
+- Maps the data to POS fields with intelligent defaults
+- Creates or updates the POS in the system
+
+**Example OSM Node:**
+The following OSM node (ID: 5589879349) contains a cafe in Heidelberg:
+
+```xml
+<node id="5589879349" lat="49.4122362" lon="8.7077883">
+  <tag k="name" v="Rada Coffee &amp; Rösterei"/>
+  <tag k="amenity" v="cafe"/>
+  <tag k="addr:street" v="Untere Straße"/>
+  <tag k="addr:housenumber" v="21"/>
+  <tag k="addr:postcode" v="69117"/>
+  <tag k="addr:city" v="Heidelberg"/>
+  <tag k="cuisine" v="coffee_shop;breakfast"/>
+  <tag k="description" v="Caffé und Rösterei"/>
+</node>
+```
+
+This would create a POS with:
+- Name: "Rada Coffee & Rösterei"
+- Type: CAFE
+- Campus: ALTSTADT
+- Address: Untere Straße 21, 69117 Heidelberg
+- Description: "Caffé und Rösterei"
 
 #### Update POS
 
