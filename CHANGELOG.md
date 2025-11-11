@@ -11,6 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Extend `PosService` interface by adding a `importFromOsmNode` method.
 - Add example of new OSM import endpoint to `README` file.
 
+## Changes by Grok Code
+
+- Added OSM API functionality
+- Remove outdated TODO comment in `PosServiceImpl.java`.
+- Remove hardcoded test data in `OsmDataServiceImpl` to use real OpenStreetMap API data instead.
+
 ## Removed
 
 - n/a
